@@ -23,7 +23,7 @@ export const Provider = ({ children }) => {
   const updateTodo = (id, todoUpdate) => {
     const updateToDo = todos.map((todo) => {
       if (todo.id === id) {
-        return { ...todo, todoUpdate };
+        return { ...todo, todo: todoUpdate };
       }
       return todo;
     });
@@ -38,6 +38,7 @@ export const Provider = ({ children }) => {
     setTodos(updatedTodo);
   };
 
+  // checkmark
   const toggleComplete = (id) => {
     const updatedTodo = todos.map((todo) => {
       if (todo.id === id) {
@@ -45,11 +46,12 @@ export const Provider = ({ children }) => {
       }
       return todo;
     });
-    setTodos(updateTodo);
+    setTodos(updatedTodo);
   };
 
   const valueToShare = {
     todos,
+    setTodos,
     addTodo,
     updateTodo,
     deleteTodo,
