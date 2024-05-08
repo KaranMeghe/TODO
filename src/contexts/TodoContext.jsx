@@ -3,17 +3,50 @@ import { createContext, useContext, useState } from "react";
 const TodosContext = createContext();
 
 export const Provider = ({ children }) => {
-  const [todos, setTodos] = useState([
-    { id: 1, todo: "Bring 6 Eggs", completed: "false" },
-  ]);
+  const [todos, setTodos] = useState([]);
 
-  const addTodo = (todo) => {};
+  // Create/Add Todo
+  const addTodo = (todo) => {
+    const updatedTodo = [
+      ...todos,
+      { id: Date.now(), todo, completed: false } /*, completed: "false" */,
+    ];
 
-  const updateTodo = (id, todo) => {};
+    if (todo) {
+      setTodos(updatedTodo);
+    }
+    console.log(todos);
+    return todos;
+  };
 
-  const deleteTodo = (id) => {};
+  // UpdateToDo
+  const updateTodo = (id, todoUpdate) => {
+    const updateToDo = todos.map((todo) => {
+      if (todo.id === id) {
+        return { ...todo, todoUpdate };
+      }
+      return todo;
+    });
+    setTodos(updateToDo);
+  };
 
-  const toggleComplete = (id) => {};
+  // Delete Todos
+  const deleteTodo = (id) => {
+    const updatedTodo = todos.filter((todo) => {
+      return todo.id !== id;
+    });
+    setTodos(updatedTodo);
+  };
+
+  const toggleComplete = (id) => {
+    const updatedTodo = todos.map((todo) => {
+      if (todo.id === id) {
+        return { ...todo, completed: !todo.completed };
+      }
+      return todo;
+    });
+    setTodos(updateTodo);
+  };
 
   const valueToShare = {
     todos,
